@@ -8,6 +8,7 @@ tags:
   - TypeScript
   - JavaScript
   - 类型系统
+coverImage: /images/88bf6d97445f18e111b83f1734261904.jpg
 ---
 
 # TypeScript 最佳实践

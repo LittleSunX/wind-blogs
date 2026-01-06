@@ -5,8 +5,8 @@
 
 .hero {
   text-align: center;
-  padding: 5rem 0;
-  margin-bottom: 4rem;
+  padding: 4rem 0;
+  margin-bottom: 3rem;
   background: linear-gradient(135deg, rgba(100, 108, 255, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
   border-radius: 20px;
   position: relative;

@@ -103,6 +103,7 @@ export async function getAllPosts(): Promise<PostMetadata[]> {
         author: post.author,
         tags: post.tags,
         category: post.category,
+        coverImage: post.coverImage,
       });
     }
   }

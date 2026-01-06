@@ -8,6 +8,7 @@ tags:
   - Vite
   - 前端工程化
   - 构建工具
+coverImage: https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&h=600&fit=crop
 ---
 
 # Vite 配置完全指南

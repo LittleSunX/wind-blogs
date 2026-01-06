@@ -8,6 +8,7 @@ tags:
   - React
   - JavaScript
   - Frontend
+coverImage: https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&h=600&fit=crop
 ---
 
 # 深入理解 React Hooks

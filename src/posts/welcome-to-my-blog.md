@@ -7,6 +7,7 @@ category: 公告
 tags:
   - 博客
   - 介绍
+coverImage: https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200&h=600&fit=crop
 ---
 
 # 欢迎来到我的博客
