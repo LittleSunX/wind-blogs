@@ -3,68 +3,49 @@
   margin: 0 auto;
 }
 
-.hero {
-  text-align: center;
-  padding: 4rem 0;
-  margin-bottom: 3rem;
-  background: linear-gradient(135deg, rgba(100, 108, 255, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-  border-radius: 20px;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(100, 108, 255, 0.1) 0%, transparent 70%);
-  animation: pulse 15s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-}
-
-.hero-content {
-  position: relative;
-  z-index: 1;
-}
-
-.hero h1 {
-  font-size: 3.5rem;
+/* 紧凑的头部区域 */
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 1.5rem 0 2rem;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  border-bottom: 1px solid var(--border-color);
 }
 
-.hero p {
-  font-size: 1.25rem;
-  color: rgba(255, 255, 255, 0.8);
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.8;
+.home-header-content {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.posts-section h2 {
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+.home-header h1 {
+  font-size: 1.75rem;
+  margin: 0;
+  background: var(--accent-gradient-full);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-weight: 700;
+}
+
+.home-subtitle {
+  font-size: 0.9375rem;
+  color: var(--text-tertiary);
+  margin: 0;
+}
+
+.home-header .search-box {
+  margin: 0;
+  flex-shrink: 0;
+  max-width: 280px;
+}
+
+.posts-section {
+  padding-top: 0.5rem;
 }
 
 .posts-list {
@@ -79,14 +60,16 @@
 }
 
 .post-card {
-  background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%);
-  border: 1px solid #333;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 16px;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 6px var(--shadow-color);
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .post-card::before {
@@ -104,8 +87,8 @@
 
 .post-card:hover {
   transform: translateY(-8px);
-  border-color: #646cff;
-  box-shadow: 0 20px 40px rgba(100, 108, 255, 0.2);
+  border-color: var(--accent-primary);
+  box-shadow: 0 20px 40px var(--shadow-accent);
 }
 
 .post-card:hover::before {
@@ -116,24 +99,28 @@
   width: 100%;
   height: 200px;
   object-fit: cover;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .post-card-placeholder {
   width: 100%;
   height: 200px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--accent-gradient);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 3rem;
-  border-bottom: 1px solid #333;
+  color: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .post-card-content {
-  padding: 1.5rem;
+  padding: 1.25rem;
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .post-card-header {
@@ -147,13 +134,13 @@
 .post-card-title {
   font-size: 1.25rem;
   margin: 0;
-  color: #fff;
+  color: var(--text-primary);
   font-weight: 600;
   line-height: 1.4;
 }
 
 .post-card-date {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-tertiary);
   font-size: 0.875rem;
   white-space: nowrap;
   display: flex;
@@ -166,65 +153,178 @@
   font-size: 1rem;
 }
 
+.post-card-info {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.post-card-reading-time {
+  color: var(--text-tertiary);
+  font-size: 0.875rem;
+}
+
 .post-card-excerpt {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--text-secondary);
   line-height: 1.6;
   margin-bottom: 1rem;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
 .post-card-meta {
   display: flex;
-  gap: 0.75rem;
+  gap: 0.5rem;
   flex-wrap: wrap;
   align-items: center;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-light);
 }
 
 .post-category {
   background: linear-gradient(135deg, #646cff 0%, #7c3aed 100%);
   color: #fff;
-  padding: 0.375rem 0.875rem;
-  border-radius: 20px;
-  font-size: 0.8125rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
   font-weight: 600;
-  box-shadow: 0 2px 4px rgba(100, 108, 255, 0.3);
 }
 
 .post-tags {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.375rem;
   flex-wrap: wrap;
 }
 
 .post-tag {
-  background-color: rgba(255, 255, 255, 0.05);
-  color: rgba(255, 255, 255, 0.7);
-  padding: 0.375rem 0.75rem;
-  border-radius: 12px;
-  font-size: 0.8125rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: transparent;
+  color: var(--text-tertiary);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  border: 1px solid var(--border-color);
   transition: all 0.2s;
 }
 
 .post-tag:hover {
-  background-color: rgba(100, 108, 255, 0.2);
-  border-color: #646cff;
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+/* 无搜索结果 */
+.no-results {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-secondary);
+}
+
+.no-results p {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.clear-search {
+  background: linear-gradient(135deg, #646cff 0%, #7c3aed 100%);
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 600;
+}
+
+.clear-search:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(100, 108, 255, 0.3);
+}
+
+/* 分页 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+}
+
+.pagination-btn {
+  background: linear-gradient(135deg, rgba(100, 108, 255, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  color: var(--text-primary);
+  border: 1px solid rgba(100, 108, 255, 0.3);
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(100, 108, 255, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+  border-color: var(--accent-primary);
+  transform: translateY(-2px);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pagination-pages {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pagination-page {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--border-light);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.pagination-page:hover {
+  background: rgba(100, 108, 255, 0.2);
+  border-color: var(--accent-primary);
+}
+
+.pagination-page.active {
+  background: linear-gradient(135deg, #646cff 0%, #7c3aed 100%);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(100, 108, 255, 0.4);
 }
 
 @media (max-width: 768px) {
-  .hero {
-    padding: 3rem 1rem;
+  .home-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
   }
 
-  .hero h1 {
-    font-size: 2.5rem;
+  .home-header h1 {
+    font-size: 1.5rem;
   }
 
-  .hero p {
-    font-size: 1rem;
+  .home-header .search-box {
+    max-width: 100%;
+    width: 100%;
   }
 
   .posts-list {
@@ -237,5 +337,19 @@
 
   .post-card-date {
     white-space: normal;
+  }
+
+  .pagination {
+    gap: 0.5rem;
+  }
+
+  .pagination-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .pagination-page {
+    width: 36px;
+    height: 36px;
   }
 }

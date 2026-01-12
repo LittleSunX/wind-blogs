@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Wind Blogs</title>
+    <link>https://wind-blogs.vercel.app</link>
+    <description>分享编程知识、技术心得和项目经验的技术博客</description>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 09 Jan 2026 09:26:32 GMT</lastBuildDate>
+    <atom:link href="https://wind-blogs.vercel.app/rss.xml" rel="self" type="application/rss+xml"/>
+    
+    <item>
+      <title>欢迎来到我的博客</title>
+      <link>https://wind-blogs.vercel.app/post/welcome-to-my-blog</link>
+      <guid isPermaLink="true">https://wind-blogs.vercel.app/post/welcome-to-my-blog</guid>
+      <description>这是我的第一篇技术博客文章。在这里我将分享编程知识、技术心得和项目经验。</description>
+      <pubDate>Mon, 06 Jan 2025 00:00:00 GMT</pubDate>
+      <author>Wind</author>
+    </item>
+    <item>
+      <title>深入理解 React Hooks</title>
+      <link>https://wind-blogs.vercel.app/post/understanding-react-hooks</link>
+      <guid isPermaLink="true">https://wind-blogs.vercel.app/post/understanding-react-hooks</guid>
+      <description>React Hooks 改变了我们在函数组件中管理状态和副作用的方式。本文将深入探讨常用 Hooks 的使用方法和最佳实践。</description>
+      <pubDate>Sun, 05 Jan 2025 00:00:00 GMT</pubDate>
+      <author>Wind</author>
+    </item>
+    <item>
+      <title>TypeScript 最佳实践</title>
+      <link>https://wind-blogs.vercel.app/post/typescript-best-practices</link>
+      <guid isPermaLink="true">https://wind-blogs.vercel.app/post/typescript-best-practices</guid>
+      <description>TypeScript 为 JavaScript 添加了类型系统，提高了代码的可维护性和可靠性。本文分享一些实用的 TypeScript 最佳实践。</description>
+      <pubDate>Sat, 04 Jan 2025 00:00:00 GMT</pubDate>
+      <author>Wind</author>
+    </item>
+    <item>
+      <title>Vite 配置完全指南</title>
+      <link>https://wind-blogs.vercel.app/post/vite-configuration-guide</link>
+      <guid isPermaLink="true">https://wind-blogs.vercel.app/post/vite-configuration-guide</guid>
+      <description>Vite 是下一代前端构建工具，提供了极速的开发体验。本文详细介绍 Vite 的配置和最佳实践。</description>
+      <pubDate>Fri, 03 Jan 2025 00:00:00 GMT</pubDate>
+      <author>Wind</author>
+    </item>
+  </channel>
+</rss>

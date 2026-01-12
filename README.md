@@ -23,12 +23,18 @@ Wind Blogs 是一个轻量级、现代化的技术博客系统。它专为开发
 
 - 📝 **Markdown 原生支持** - 用最简单的方式写文章
 - 🎨 **精美 UI 设计** - 渐变色主题 + 流畅动画
-- 🖼️ **封面图支持** - 每篇文章都可以有自己的封面
+- 🌙 **暗色/亮色主题** - 一键切换，自动记忆偏好
+- � **文章搜索** - 实时搜索标题、摘要、分类和标签
+- ⏱️ **阅读时间估算** - 自动计算预估阅读时长
+- 📄 **文章分页** - 优雅的分页浏览体验
+- 💬 **评论系统** - 基于 Giscus 的 GitHub Discussions 评论
+- 📡 **RSS 订阅** - 自动生成 RSS feed
+- �🖼️ **封面图支持** - 每篇文章都可以有自己的封面
 - 💎 **代码高亮** - 自动识别语言并高亮显示
 - 🏷️ **分类标签** - 完善的分类和标签系统
 - 📱 **完全响应式** - 完美适配各种设备
 - ⚡ **极速开发** - 基于 Vite，秒级启动
-- 🔍 **SEO 友好** - 良好的搜索引擎优化
+- � **SEO 优化** - Open Graph + Twitter Card 支持
 
 ## 🎬 快速开始
 
@@ -164,42 +170,103 @@ coverImage: https://example.com/image.jpg
 
 ### 修改颜色主题
 
-编辑 `src/styles/Home.css` 和 `src/styles/Post.css`，查找以下变量并修改：
+本项目使用 CSS 变量实现主题系统，在 `src/index.css` 中修改：
 
 ```css
-/* 主色调 */
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+:root {
+  /* 主色调 */
+  --accent-primary: #646cff;
+  --accent-secondary: #7c3aed;
+  --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  
+  /* 暗色主题背景 */
+  --bg-primary: #242424;
+  --bg-secondary: #1a1a1a;
+}
 
-/* 或在 src/index.css 中修改 */
---primary-color: #646cff;
+[data-theme="light"] {
+  /* 亮色主题背景 */
+  --bg-primary: #f5f5f7;
+  --bg-secondary: #ffffff;
+}
 ```
+
+## 💬 配置评论系统
+
+本项目使用 [Giscus](https://giscus.app/) 作为评论系统，基于 GitHub Discussions。
+
+### 配置步骤
+
+1. 在你的 GitHub 仓库启用 Discussions 功能
+2. 访问 [giscus.app](https://giscus.app/) 获取配置参数
+3. 编辑 `src/components/Comments.tsx`，更新配置：
+
+```typescript
+const GISCUS_CONFIG = {
+  repo: 'your-username/your-repo',  // 你的仓库
+  repoId: 'R_xxxxxxxx',             // 仓库 ID
+  category: 'Announcements',        // Discussion 分类
+  categoryId: 'DIC_xxxxxxxx',       // 分类 ID
+};
+```
+
+## 📡 RSS 订阅
+
+### 生成 RSS
+
+```bash
+# 手动生成
+npm run rss
+
+# 构建时自动生成（默认）
+npm run build
+```
+
+### 配置 RSS URL
+
+编辑 `scripts/generate-rss.ts`，修改网站地址：
+
+```typescript
+const SITE_URL = 'https://your-domain.com';  // 你的网站地址
+```
+
+RSS 文件将生成在 `/rss.xml`，用户可通过导航栏的 RSS 链接订阅。
 
 ## 📁 项目结构
 
 ```
 wind_blogs/
 ├── public/
-│   └── images/              # 图片资源目录
+│   ├── images/              # 图片资源目录
+│   └── rss.xml              # RSS 订阅文件（自动生成）
+├── scripts/
+│   └── generate-rss.ts      # RSS 生成脚本
 ├── src/
 │   ├── components/          # React 组件
 │   │   ├── Layout.tsx       # 布局组件
-│   │   └── MarkdownRenderer.tsx  # Markdown 渲染器
+│   │   ├── MarkdownRenderer.tsx  # Markdown 渲染器
+│   │   ├── SearchBox.tsx    # 搜索框组件
+│   │   ├── ThemeToggle.tsx  # 主题切换按钮
+│   │   ├── SEO.tsx          # SEO 组件
+│   │   └── Comments.tsx     # Giscus 评论组件
+│   ├── contexts/            # React Context
+│   │   └── ThemeContext.tsx # 主题上下文
 │   ├── pages/               # 页面组件
 │   │   ├── Home.tsx         # 首页
 │   │   └── Post.tsx         # 文章详情页
 │   ├── posts/               # ⭐ Markdown 文章目录
-│   │   ├── welcome-to-my-blog.md
-│   │   ├── understanding-react-hooks.md
-│   │   ├── typescript-best-practices.md
-│   │   └── vite-configuration-guide.md
 │   ├── styles/              # 样式文件
 │   │   ├── Layout.css
 │   │   ├── Home.css
-│   │   └── Post.css
+│   │   ├── Post.css
+│   │   ├── SearchBox.css
+│   │   ├── ThemeToggle.css
+│   │   └── Comments.css
 │   ├── utils/               # 工具函数
-│   │   └── posts.ts         # 文章加载逻辑
+│   │   └── posts.ts         # 文章加载与阅读时间计算
 │   ├── App.tsx              # 应用入口
 │   ├── main.tsx             # React 挂载点
+│   ├── index.css            # 全局样式与主题变量
 │   └── types.ts             # TypeScript 类型定义
 ├── index.html               # HTML 模板
 ├── package.json             # 项目配置
@@ -265,6 +332,8 @@ npm run build
 | [React Markdown](https://github.com/remarkjs/react-markdown) | 9.0 | Markdown 解析 |
 | [Remark GFM](https://github.com/remarkjs/remark-gfm) | 4.0 | GitHub Flavored Markdown |
 | [React Syntax Highlighter](https://github.com/react-syntax-highlighter/react-syntax-highlighter) | 15.5 | 代码高亮 |
+| [React Helmet Async](https://github.com/staylor/react-helmet-async) | 2.0 | SEO meta 标签管理 |
+| [Giscus](https://giscus.app/) | - | GitHub Discussions 评论系统 |
 
 ## 📊 功能路线图
 
@@ -274,13 +343,13 @@ npm run build
 - [x] ✅ 分类和标签系统
 - [x] ✅ 响应式设计
 - [x] ✅ 渐变主题
-- [ ] 🔲 文章搜索功能
-- [ ] 🔲 RSS 订阅
-- [ ] 🔲 文章评论系统
-- [ ] 🔲 暗色/亮色主题切换
-- [ ] 🔲 阅读时间估算
-- [ ] 🔲 文章分页
-- [ ] 🔲 SEO 优化（meta 标签）
+- [x] ✅ 文章搜索功能
+- [x] ✅ RSS 订阅
+- [x] ✅ 文章评论系统 (Giscus)
+- [x] ✅ 暗色/亮色主题切换
+- [x] ✅ 阅读时间估算
+- [x] ✅ 文章分页
+- [x] ✅ SEO 优化（meta 标签）
 
 ## 🤝 贡献指南
 
