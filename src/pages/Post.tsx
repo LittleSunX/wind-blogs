@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { getPostBySlug, Post as PostType } from '../utils/posts';
+import {
+  getPostBySlug,
+  Post as PostType,
+  getFirstLetter,
+} from '../utils/posts';
 import MarkdownRenderer from '../components/MarkdownRenderer';
 import SEO from '../components/SEO';
 import Comments from '../components/Comments';
@@ -29,11 +33,6 @@ const Post = () => {
   if (!post) {
     return <Navigate to="/" replace />;
   }
-
-  // 获取文章首字母作为占位符
-  const getFirstLetter = (title: string) => {
-    return title.charAt(0).toUpperCase();
-  };
 
   return (
     <div className="post">
@@ -70,9 +69,13 @@ const Post = () => {
               <time dateTime={post.date} className="post-meta-item date">
                 {post.date}
               </time>
-              <span className="post-meta-item reading-time">⏱️ {post.readingTime} 分钟阅读</span>
+              <span className="post-meta-item reading-time">
+                ⏱️ {post.readingTime} 分钟阅读
+              </span>
               {post.author && (
-                <span className="post-meta-item author">作者: {post.author}</span>
+                <span className="post-meta-item author">
+                  作者: {post.author}
+                </span>
               )}
               {post.category && (
                 <span className="post-category-badge">{post.category}</span>

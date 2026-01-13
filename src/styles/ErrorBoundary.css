@@ -1,0 +1,13 @@
+.error-boundary {
+  padding: 3rem;
+  text-align: center;
+}
+
+.error-boundary h1 {
+  color: #f44;
+  margin-bottom: 1rem;
+}
+
+.error-boundary p {
+  color: var(--text-secondary);
+}

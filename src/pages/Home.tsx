@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { getAllPosts, PostMetadata } from '../utils/posts';
+import { getAllPosts, PostMetadata, getFirstLetter } from '../utils/posts';
 import SearchBox from '../components/SearchBox';
 import SEO from '../components/SEO';
 import '../styles/Home.css';
@@ -28,11 +28,12 @@ const Home = () => {
       return posts;
     }
     const query = searchQuery.toLowerCase();
-    return posts.filter(post =>
-      post.title.toLowerCase().includes(query) ||
-      post.excerpt.toLowerCase().includes(query) ||
-      post.category?.toLowerCase().includes(query) ||
-      post.tags?.some(tag => tag.toLowerCase().includes(query))
+    return posts.filter(
+      (post) =>
+        post.title.toLowerCase().includes(query) ||
+        post.excerpt.toLowerCase().includes(query) ||
+        post.category?.toLowerCase().includes(query) ||
+        post.tags?.some((tag) => tag.toLowerCase().includes(query))
     );
   }, [posts, searchQuery]);
 
@@ -52,11 +53,6 @@ const Home = () => {
     return <div className="home">Loading...</div>;
   }
 
-  // 获取文章首字母作为占位符
-  const getFirstLetter = (title: string) => {
-    return title.charAt(0).toUpperCase();
-  };
-
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -67,7 +63,14 @@ const Home = () => {
       <SEO
         title="Wind Blogs"
         description="分享编程知识、技术心得和项目经验的技术博客"
-        keywords={['技术博客', '前端开发', 'React', 'TypeScript', 'JavaScript', '编程教程']}
+        keywords={[
+          '技术博客',
+          '前端开发',
+          'React',
+          'TypeScript',
+          'JavaScript',
+          '编程教程',
+        ]}
       />
 
       <header className="home-header">
@@ -94,7 +97,11 @@ const Home = () => {
           <>
             <div className="posts-list">
               {paginatedPosts.map((post) => (
-                <Link key={post.slug} to={`/post/${post.slug}`} className="post-card-link">
+                <Link
+                  key={post.slug}
+                  to={`/post/${post.slug}`}
+                  className="post-card-link"
+                >
                   <article className="post-card">
                     {post.coverImage ? (
                       <img
@@ -113,7 +120,9 @@ const Home = () => {
                       </div>
                       <div className="post-card-info">
                         <time className="post-card-date">{post.date}</time>
-                        <span className="post-card-reading-time">⏱️ {post.readingTime} 分钟阅读</span>
+                        <span className="post-card-reading-time">
+                          ⏱️ {post.readingTime} 分钟阅读
+                        </span>
                       </div>
                       <p className="post-card-excerpt">{post.excerpt}</p>
                       <div className="post-card-meta">
@@ -148,15 +157,17 @@ const Home = () => {
                 </button>
 
                 <div className="pagination-pages">
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                    <button
-                      key={page}
-                      className={`pagination-page ${currentPage === page ? 'active' : ''}`}
-                      onClick={() => handlePageChange(page)}
-                    >
-                      {page}
-                    </button>
-                  ))}
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                    (page) => (
+                      <button
+                        key={page}
+                        className={`pagination-page ${currentPage === page ? 'active' : ''}`}
+                        onClick={() => handlePageChange(page)}
+                      >
+                        {page}
+                      </button>
+                    )
+                  )}
                 </div>
 
                 <button

@@ -5,7 +5,6 @@ excerpt: TypeScript 为 JavaScript 添加了类型系统，提高了代码的可
 author: Wind
 category: TypeScript
 tags:
-  - TypeScript
   - JavaScript
   - 类型系统
 coverImage: /images/88bf6d97445f18e111b83f1734261904.jpg
