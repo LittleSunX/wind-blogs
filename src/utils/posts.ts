@@ -1,6 +1,7 @@
 import matter from 'gray-matter';
 import { Post, PostMetadata } from '../types';
 import { Buffer } from 'buffer';
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (window as any).Buffer = Buffer;
 
 // 重新导出类型供其他模块使用

@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import { getAllPosts, PostMetadata, getFirstLetter } from '../utils/posts';
 import SearchBox from '../components/SearchBox';
 import SEO from '../components/SEO';
+import { useI18n } from '../contexts/I18nContext';
 import '../styles/Home.css';
 
 const POSTS_PER_PAGE = 6;
 
 const Home = () => {
+  const { t } = useI18n();
   const [posts, setPosts] = useState<PostMetadata[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -50,7 +52,7 @@ const Home = () => {
   }, [searchQuery]);
 
   if (loading) {
-    return <div className="home">Loading...</div>;
+    return <div className="home">{t.common.loading}</div>;
   }
 
   const handlePageChange = (page: number) => {
@@ -75,22 +77,22 @@ const Home = () => {
 
       <header className="home-header">
         <div className="home-header-content">
-          <h1>📝 最新文章</h1>
-          <p className="home-subtitle">分享编程知识与技术心得</p>
+          <h1>{t.home.title}</h1>
+          <p className="home-subtitle">{t.home.subtitle}</p>
         </div>
         <SearchBox
           value={searchQuery}
           onChange={setSearchQuery}
-          placeholder="搜索文章..."
+          placeholder={t.home.searchPlaceholder}
         />
       </header>
 
       <section className="posts-section">
         {filteredPosts.length === 0 ? (
           <div className="no-results">
-            <p>😕 没有找到匹配的文章</p>
+            <p>{t.common.noResults}</p>
             <button className="clear-search" onClick={() => setSearchQuery('')}>
-              清除搜索
+              {t.common.clearSearch}
             </button>
           </div>
         ) : (
@@ -121,7 +123,7 @@ const Home = () => {
                       <div className="post-card-info">
                         <time className="post-card-date">{post.date}</time>
                         <span className="post-card-reading-time">
-                          ⏱️ {post.readingTime} 分钟阅读
+                          ⏱️ {post.readingTime} {t.common.minuteRead}
                         </span>
                       </div>
                       <p className="post-card-excerpt">{post.excerpt}</p>
@@ -153,7 +155,7 @@ const Home = () => {
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1}
                 >
-                  ← 上一页
+                  {t.pagination.prev}
                 </button>
 
                 <div className="pagination-pages">
@@ -175,7 +177,7 @@ const Home = () => {
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
                 >
-                  下一页 →
+                  {t.pagination.next}
                 </button>
               </div>
             )}

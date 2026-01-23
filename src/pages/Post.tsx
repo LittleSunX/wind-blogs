@@ -8,9 +8,11 @@ import {
 import MarkdownRenderer from '../components/MarkdownRenderer';
 import SEO from '../components/SEO';
 import Comments from '../components/Comments';
+import { useI18n } from '../contexts/I18nContext';
 import '../styles/Post.css';
 
 const Post = () => {
+  const { t } = useI18n();
   const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState<PostType | null>(null);
   const [loading, setLoading] = useState(true);
@@ -27,7 +29,7 @@ const Post = () => {
   }, [slug]);
 
   if (loading) {
-    return <div className="post">Loading...</div>;
+    return <div className="post">{t.common.loading}</div>;
   }
 
   if (!post) {
@@ -46,7 +48,7 @@ const Post = () => {
         publishedTime={post.date}
       />
       <Link to="/" className="post-back-link">
-        返回首页
+        {t.common.backToHome}
       </Link>
 
       <article className="post-article">
@@ -70,11 +72,11 @@ const Post = () => {
                 {post.date}
               </time>
               <span className="post-meta-item reading-time">
-                ⏱️ {post.readingTime} 分钟阅读
+                ⏱️ {post.readingTime} {t.common.minuteRead}
               </span>
               {post.author && (
                 <span className="post-meta-item author">
-                  作者: {post.author}
+                  {t.common.author}: {post.author}
                 </span>
               )}
               {post.category && (

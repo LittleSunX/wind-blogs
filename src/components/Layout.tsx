@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
+import LanguageToggle from './LanguageToggle';
+import { useI18n } from '../contexts/I18nContext';
 import '../styles/Layout.css';
 
 interface LayoutProps {
@@ -7,6 +9,8 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const { t } = useI18n();
+
   return (
     <div className="layout">
       <header className="header">
@@ -15,12 +19,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             Wind Blogs
           </Link>
           <nav className="nav">
-            <Link to="/">首页</Link>
+            <Link to="/">{t.nav.home}</Link>
             <a
               href="/rss.xml"
               target="_blank"
               rel="noopener noreferrer"
-              title="RSS 订阅"
+              title={t.nav.rss}
             >
               📡 RSS
             </a>
@@ -31,6 +35,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             >
               GitHub
             </a>
+            <LanguageToggle />
             <ThemeToggle />
           </nav>
         </div>
