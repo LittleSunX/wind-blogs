@@ -11,6 +11,8 @@
 
 ✨ 支持 Markdown | 🎨 渐变主题 | 📱 响应式设计 | 🚀 极速构建
 
+**简体中文 | [English](./README_EN.md)**
+
 </div>
 
 ---
