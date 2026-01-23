@@ -25,16 +25,16 @@ Vite 是下一代前端构建工具，提供了极速的开发体验。
 ## 基础配置
 
 ```typescript
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    open: true
-  }
-})
+    open: true,
+  },
+});
 ```
 
 ## 路径别名
@@ -47,10 +47,10 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src'),
       '@components': path.resolve(__dirname, './src/components'),
-      '@utils': path.resolve(__dirname, './src/utils')
-    }
-  }
-})
+      '@utils': path.resolve(__dirname, './src/utils'),
+    },
+  },
+});
 ```
 
 ## 环境变量
@@ -84,12 +84,12 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
-          utils: ['lodash', 'axios']
-        }
-      }
-    }
-  }
-})
+          utils: ['lodash', 'axios'],
+        },
+      },
+    },
+  },
+});
 ```
 
 ## 总结

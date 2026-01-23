@@ -7,7 +7,10 @@ import { Buffer } from 'buffer';
 export type { Post, PostMetadata };
 
 // 使用 Vite 的 import.meta.glob 导入所有 Markdown 文件
-const postModules = import.meta.glob('../posts/*.md', { as: 'raw' });
+const postModules = import.meta.glob('../posts/*.md', {
+  query: '?raw',
+  import: 'default',
+});
 
 // 缓存已加载的文章
 let postsCache: PostMetadata[] | null = null;

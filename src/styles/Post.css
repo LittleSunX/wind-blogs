@@ -11,7 +11,11 @@
   text-decoration: none;
   margin-bottom: 2rem;
   padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, rgba(100, 108, 255, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(100, 108, 255, 0.1) 0%,
+    rgba(118, 75, 162, 0.1) 100%
+  );
   border-radius: 12px;
   border: 1px solid rgba(100, 108, 255, 0.3);
   transition: all 0.3s;
@@ -24,7 +28,11 @@
 }
 
 .post-back-link:hover {
-  background: linear-gradient(135deg, rgba(100, 108, 255, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(100, 108, 255, 0.2) 0%,
+    rgba(118, 75, 162, 0.2) 100%
+  );
   border-color: var(--accent-primary);
   transform: translateX(-4px);
 }
@@ -35,7 +43,9 @@
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 10px 40px var(--shadow-color);
-  transition: background 0.3s ease, border-color 0.3s ease;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .post-cover-image {
@@ -227,7 +237,11 @@
   border-left: 4px solid var(--accent-primary);
   padding: 1.5rem;
   margin: 2rem 0;
-  background: linear-gradient(135deg, rgba(100, 108, 255, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(100, 108, 255, 0.1) 0%,
+    rgba(118, 75, 162, 0.1) 100%
+  );
   border-radius: 8px;
   color: var(--text-secondary);
   font-style: italic;
@@ -279,7 +293,7 @@
   border: 1px solid rgba(100, 108, 255, 0.3);
 }
 
-[data-theme="light"] .post-content code {
+[data-theme='light'] .post-content code {
   color: #7c3aed;
 }
 

@@ -40,7 +40,7 @@ interface User {
 const user: User = {
   id: 1,
   name: 'John',
-  email: 'john@example.com'
+  email: 'john@example.com',
 };
 ```
 

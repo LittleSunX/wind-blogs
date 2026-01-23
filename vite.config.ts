@@ -13,4 +13,40 @@ export default defineConfig({
   define: {
     global: 'globalThis',
   },
+  build: {
+    chunkSizeWarningLimit: 750,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (!id.includes('node_modules')) {
+            return undefined;
+          }
+
+          if (/node_modules[\\/](react|react-dom|scheduler)[\\/]/.test(id)) {
+            return 'react';
+          }
+
+          if (id.includes('react-router') || id.includes('@remix-run/router')) {
+            return 'router';
+          }
+
+          if (id.includes('react-helmet-async')) {
+            return 'helmet';
+          }
+
+          if (
+            id.includes('react-syntax-highlighter') ||
+            id.includes('refractor') ||
+            id.includes('prismjs') ||
+            id.includes('highlight.js') ||
+            id.includes('lowlight')
+          ) {
+            return 'syntax';
+          }
+
+          return 'vendor';
+        },
+      },
+    },
+  },
 });
