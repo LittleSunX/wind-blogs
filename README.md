@@ -24,17 +24,18 @@ Wind Blogs 是一个轻量级、现代化的技术博客系统。它专为开发
 - 📝 **Markdown 原生支持** - 用最简单的方式写文章
 - 🎨 **精美 UI 设计** - 渐变色主题 + 流畅动画
 - 🌙 **暗色/亮色主题** - 一键切换，自动记忆偏好
-- � **文章搜索** - 实时搜索标题、摘要、分类和标签
+- 🌐 **国际化支持** - 中/英文界面切换，自动检测浏览器语言
+- 🔍 **文章搜索** - 实时搜索标题、摘要、分类和标签
 - ⏱️ **阅读时间估算** - 自动计算预估阅读时长
 - 📄 **文章分页** - 优雅的分页浏览体验
 - 💬 **评论系统** - 基于 Giscus 的 GitHub Discussions 评论
 - 📡 **RSS 订阅** - 自动生成 RSS feed
-- �🖼️ **封面图支持** - 每篇文章都可以有自己的封面
+- 🖼️ **封面图支持** - 每篇文章都可以有自己的封面
 - 💎 **代码高亮** - 自动识别语言并高亮显示
 - 🏷️ **分类标签** - 完善的分类和标签系统
 - 📱 **完全响应式** - 完美适配各种设备
 - ⚡ **极速开发** - 基于 Vite，秒级启动
-- � **SEO 优化** - Open Graph + Twitter Card 支持
+- 🔍 **SEO 优化** - Open Graph + Twitter Card 支持
 
 ## 🎬 快速开始
 
@@ -232,6 +233,35 @@ const SITE_URL = 'https://your-domain.com';  // 你的网站地址
 
 RSS 文件将生成在 `/rss.xml`，用户可通过导航栏的 RSS 链接订阅。
 
+## 🌐 国际化配置
+
+本项目支持中英文界面切换，默认根据浏览器语言自动选择。
+
+### 工作原理
+
+- 首次访问时自动检测浏览器语言偏好
+- 用户选择的语言会保存在 localStorage 中
+- 评论系统（Giscus）会跟随界面语言切换
+
+### 添加新语言
+
+编辑 `src/i18n/locales.ts`，添加新的语言配置：
+
+```typescript
+export type Locale = 'zh' | 'en' | 'ja';  // 添加新语言代码
+
+export const locales: Record<Locale, LocaleStrings> = {
+  // ... 现有语言
+  ja: {
+    common: {
+      loading: '読み込み中...',
+      // ... 其他翻译
+    },
+    // ... 其他分类
+  },
+};
+```
+
 ## 📁 项目结构
 
 ```
@@ -247,10 +277,14 @@ wind_blogs/
 │   │   ├── MarkdownRenderer.tsx  # Markdown 渲染器
 │   │   ├── SearchBox.tsx    # 搜索框组件
 │   │   ├── ThemeToggle.tsx  # 主题切换按钮
+│   │   ├── LanguageToggle.tsx  # 语言切换按钮
 │   │   ├── SEO.tsx          # SEO 组件
 │   │   └── Comments.tsx     # Giscus 评论组件
 │   ├── contexts/            # React Context
-│   │   └── ThemeContext.tsx # 主题上下文
+│   │   ├── ThemeContext.tsx # 主题上下文
+│   │   └── I18nContext.tsx  # 国际化上下文
+│   ├── i18n/                # 国际化配置
+│   │   └── locales.ts       # 语言包（中/英文）
 │   ├── pages/               # 页面组件
 │   │   ├── Home.tsx         # 首页
 │   │   └── Post.tsx         # 文章详情页
@@ -261,6 +295,7 @@ wind_blogs/
 │   │   ├── Post.css
 │   │   ├── SearchBox.css
 │   │   ├── ThemeToggle.css
+│   │   ├── LanguageToggle.css
 │   │   └── Comments.css
 │   ├── utils/               # 工具函数
 │   │   └── posts.ts         # 文章加载与阅读时间计算
@@ -350,6 +385,7 @@ npm run build
 - [x] ✅ 阅读时间估算
 - [x] ✅ 文章分页
 - [x] ✅ SEO 优化（meta 标签）
+- [x] ✅ 国际化支持（中/英文）
 
 ## 🤝 贡献指南
 

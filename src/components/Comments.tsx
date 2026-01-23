@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useTheme } from '../contexts/ThemeContext';
+import { useI18n } from '../contexts/I18nContext';
 import '../styles/Comments.css';
 
 interface CommentsProps {
@@ -17,6 +18,7 @@ const GISCUS_CONFIG = {
 
 const Comments: React.FC<CommentsProps> = ({ slug }) => {
   const { theme } = useTheme();
+  const { t, locale } = useI18n();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -55,7 +57,7 @@ const Comments: React.FC<CommentsProps> = ({ slug }) => {
       'data-theme',
       theme === 'dark' ? 'dark_dimmed' : 'light'
     );
-    script.setAttribute('data-lang', 'zh-CN');
+    script.setAttribute('data-lang', locale === 'zh' ? 'zh-CN' : 'en');
     script.setAttribute('data-loading', 'lazy');
     script.crossOrigin = 'anonymous';
     script.async = true;
@@ -66,17 +68,17 @@ const Comments: React.FC<CommentsProps> = ({ slug }) => {
     return () => {
       script.remove();
     };
-  }, [slug, theme]);
+  }, [slug, theme, locale]);
 
   // 如果配置不完整，显示配置提示
   if (!GISCUS_CONFIG.repoId || !GISCUS_CONFIG.categoryId) {
     return (
       <div className="comments-section">
-        <h2 className="comments-title">💬 评论</h2>
+        <h2 className="comments-title">{t.comments.title}</h2>
         <div className="comments-placeholder">
-          <p>评论功能需要配置 Giscus</p>
+          <p>{t.comments.configRequired}</p>
           <p>
-            请访问{' '}
+            {t.comments.configHint}{' '}
             <a
               href="https://giscus.app/"
               target="_blank"
@@ -84,7 +86,7 @@ const Comments: React.FC<CommentsProps> = ({ slug }) => {
             >
               giscus.app
             </a>{' '}
-            获取配置信息
+            {t.comments.giscusLink}
           </p>
         </div>
       </div>
@@ -93,7 +95,7 @@ const Comments: React.FC<CommentsProps> = ({ slug }) => {
 
   return (
     <div className="comments-section">
-      <h2 className="comments-title">💬 评论</h2>
+      <h2 className="comments-title">{t.comments.title}</h2>
       <div ref={containerRef} className="giscus-container" />
     </div>
   );
