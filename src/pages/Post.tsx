@@ -18,14 +18,37 @@ const Post = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
+    setLoading(true);
+    setPost(null);
+
     const loadPost = async () => {
-      if (slug) {
+      try {
+        if (!slug) {
+          return;
+        }
+
         const postData = await getPostBySlug(slug);
-        setPost(postData);
+        if (isMounted) {
+          setPost(postData);
+        }
+      } catch (error) {
+        console.error(`Error loading post ${slug ?? ''}:`, error);
+        if (isMounted) {
+          setPost(null);
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
       }
-      setLoading(false);
     };
+
     loadPost();
+
+    return () => {
+      isMounted = false;
+    };
   }, [slug]);
 
   if (loading) {

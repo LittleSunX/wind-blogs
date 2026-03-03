@@ -23,6 +23,11 @@ const SEO: React.FC<SEOProps> = ({
 }) => {
   const siteName = 'Wind Blogs';
   const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
+  const canonicalUrl =
+    url ??
+    (typeof window !== 'undefined'
+      ? `${window.location.origin}${window.location.pathname}`
+      : undefined);
 
   return (
     <Helmet>
@@ -37,7 +42,7 @@ const SEO: React.FC<SEOProps> = ({
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:site_name" content={siteName} />
-      {url && <meta property="og:url" content={url} />}
+      {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
       {image && <meta property="og:image" content={image} />}
       {publishedTime && (
         <meta property="article:published_time" content={publishedTime} />
@@ -55,7 +60,7 @@ const SEO: React.FC<SEOProps> = ({
       {/* 其他 SEO 相关 */}
       <meta name="robots" content="index, follow" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="canonical" href={url} />
+      {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
     </Helmet>
   );
 };
