@@ -1,20 +1,15 @@
 import { useEffect, useRef } from 'react';
 import { useTheme } from '../contexts/ThemeContext';
 import { useI18n } from '../contexts/I18nContext';
+import { appConfig } from '../config';
 import '../styles/Comments.css';
 
 interface CommentsProps {
   slug: string;
 }
 
-// Giscus 配置 - 请在部署前更新这些值
-// 访问 https://giscus.app/ 获取您的配置
-const GISCUS_CONFIG = {
-  repo: 'LittleSunX/wind-blogs', // 替换为您的仓库
-  repoId: '', // 替换为您的仓库 ID
-  category: 'Announcements', // 替换为您的分类
-  categoryId: '', // 替换为您的分类 ID
-};
+// Giscus 配置由环境变量驱动，默认值见 src/config.ts
+const GISCUS_CONFIG = appConfig.giscus;
 
 const Comments: React.FC<CommentsProps> = ({ slug }) => {
   const { theme } = useTheme();

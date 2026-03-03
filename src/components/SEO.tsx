@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { appConfig } from '../config';
 
 interface SEOProps {
   title?: string;
@@ -11,8 +12,18 @@ interface SEOProps {
   publishedTime?: string;
 }
 
+function resolveImageUrl(image: string): string {
+  if (/^https?:\/\//i.test(image)) {
+    return image;
+  }
+  if (image.startsWith('/')) {
+    return `${appConfig.siteUrl}${image}`;
+  }
+  return `${appConfig.siteUrl}/${image}`;
+}
+
 const SEO: React.FC<SEOProps> = ({
-  title = 'Wind Blogs',
+  title = appConfig.siteName,
   description = '分享编程知识、技术心得和项目经验的技术博客',
   keywords = ['技术博客', '前端开发', 'React', 'TypeScript', '编程'],
   author = 'Wind',
@@ -21,13 +32,37 @@ const SEO: React.FC<SEOProps> = ({
   type = 'website',
   publishedTime,
 }) => {
-  const siteName = 'Wind Blogs';
+  const siteName = appConfig.siteName;
   const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
   const canonicalUrl =
     url ??
     (typeof window !== 'undefined'
-      ? `${window.location.origin}${window.location.pathname}`
+      ? `${appConfig.siteUrl}${window.location.pathname}`
       : undefined);
+  const jsonLd =
+    type === 'article'
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          headline: title,
+          description,
+          ...(canonicalUrl
+            ? { url: canonicalUrl, mainEntityOfPage: canonicalUrl }
+            : {}),
+          ...(publishedTime ? { datePublished: publishedTime } : {}),
+          ...(image ? { image: [resolveImageUrl(image)] } : {}),
+          author: {
+            '@type': 'Person',
+            name: author,
+          },
+        }
+      : {
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: siteName,
+          url: appConfig.siteUrl,
+          description,
+        };
 
   return (
     <Helmet>
@@ -61,6 +96,7 @@ const SEO: React.FC<SEOProps> = ({
       <meta name="robots" content="index, follow" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+      <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
     </Helmet>
   );
 };

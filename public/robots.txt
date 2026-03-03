@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wind-blogs.vercel.app/sitemap.xml
