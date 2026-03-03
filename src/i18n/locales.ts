@@ -29,6 +29,12 @@ export interface LocaleStrings {
     category: string;
     tags: string;
   };
+  // 404 页面
+  notFound: {
+    title: string;
+    description: string;
+    backHome: string;
+  };
   // 评论
   comments: {
     title: string;
@@ -79,6 +85,11 @@ export const locales: Record<Locale, LocaleStrings> = {
       category: '分类',
       tags: '标签',
     },
+    notFound: {
+      title: '页面不存在',
+      description: '你访问的页面不存在或已被移除。',
+      backHome: '返回首页',
+    },
     comments: {
       title: '💬 评论',
       configRequired: '评论功能需要配置 Giscus',
@@ -122,6 +133,11 @@ export const locales: Record<Locale, LocaleStrings> = {
     post: {
       category: 'Category',
       tags: 'Tags',
+    },
+    notFound: {
+      title: 'Page Not Found',
+      description: 'The page you requested does not exist or has been removed.',
+      backHome: 'Back to Home',
     },
     comments: {
       title: '💬 Comments',

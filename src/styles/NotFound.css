@@ -1,0 +1,20 @@
+.not-found-page {
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.not-found-title {
+  font-size: 4rem;
+  margin: 0 0 0.5rem;
+}
+
+.not-found-link {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.65rem 1.2rem;
+  border-radius: 999px;
+  background: var(--accent-gradient);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import {
   getPostBySlug,
@@ -7,9 +7,10 @@ import {
 } from '../utils/posts';
 import MarkdownRenderer from '../components/MarkdownRenderer';
 import SEO from '../components/SEO';
-import Comments from '../components/Comments';
 import { useI18n } from '../contexts/I18nContext';
 import '../styles/Post.css';
+
+const Comments = lazy(() => import('../components/Comments'));
 
 const Post = () => {
   const { t } = useI18n();
@@ -56,7 +57,7 @@ const Post = () => {
   }
 
   if (!post) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/404" replace />;
   }
 
   return (
@@ -121,7 +122,13 @@ const Post = () => {
             <MarkdownRenderer content={post.content} />
           </div>
 
-          <Comments slug={post.slug} />
+          <Suspense
+            fallback={
+              <div className="comments-section">{t.common.loading}</div>
+            }
+          >
+            <Comments slug={post.slug} />
+          </Suspense>
         </div>
       </article>
     </div>

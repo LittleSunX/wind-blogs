@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 
@@ -12,6 +12,13 @@ export default defineConfig({
   },
   define: {
     global: 'globalThis',
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['./src/test/setup.ts'],
+    css: true,
+    exclude: ['e2e/**', 'node_modules/**', 'dist/**'],
   },
   build: {
     chunkSizeWarningLimit: 750,

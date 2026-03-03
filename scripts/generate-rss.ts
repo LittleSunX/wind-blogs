@@ -3,8 +3,10 @@ import * as path from 'path';
 import matter from 'gray-matter';
 
 // 配置
-const SITE_URL = 'https://wind-blogs.vercel.app'; // 请根据实际部署地址修改
-const SITE_TITLE = 'Wind Blogs';
+const SITE_URL = (
+  process.env.VITE_SITE_URL || 'https://wind-blogs.vercel.app'
+).replace(/\/+$/, '');
+const SITE_TITLE = process.env.VITE_SITE_NAME || 'Wind Blogs';
 const SITE_DESCRIPTION = '分享编程知识、技术心得和项目经验的技术博客';
 
 interface PostData {
