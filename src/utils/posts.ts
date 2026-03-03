@@ -52,6 +52,22 @@ function calculateReadingTime(content: string): number {
   return Math.max(1, totalMinutes); // 至少 1 分钟
 }
 
+// 统一 frontmatter 日期，异常值回退到当天
+function normalizeDate(dateValue: unknown): string {
+  if (
+    dateValue instanceof Date ||
+    typeof dateValue === 'string' ||
+    typeof dateValue === 'number'
+  ) {
+    const parsedDate = new Date(dateValue);
+    if (!Number.isNaN(parsedDate.getTime())) {
+      return parsedDate.toISOString().split('T')[0];
+    }
+  }
+
+  return new Date().toISOString().split('T')[0];
+}
+
 // 解析 frontmatter 和内容
 async function parsePostFile(slug: string, content: string): Promise<Post> {
   const { data, content: markdownContent } = matter(content);
@@ -59,9 +75,7 @@ async function parsePostFile(slug: string, content: string): Promise<Post> {
   return {
     slug,
     title: data.title || 'Untitled',
-    date: data.date
-      ? new Date(data.date).toISOString().split('T')[0]
-      : new Date().toISOString().split('T')[0],
+    date: normalizeDate(data.date),
     excerpt: data.excerpt || markdownContent.slice(0, 150) + '...',
     author: data.author,
     category: data.category,
@@ -128,8 +142,13 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     return null;
   }
 
-  const content = (await postModules[path]()) as unknown as string;
-  return parsePostFile(slug, content);
+  try {
+    const content = (await postModules[path]()) as unknown as string;
+    return await parsePostFile(slug, content);
+  } catch (error) {
+    console.error(`Error loading post ${slug}:`, error);
+    return null;
+  }
 }
 
 // 获取所有文章分类
