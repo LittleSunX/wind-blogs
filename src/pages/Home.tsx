@@ -9,7 +9,7 @@ import '../styles/Home.css';
 const POSTS_PER_PAGE = 6;
 
 const Home = () => {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const [posts, setPosts] = useState<PostMetadata[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -24,7 +24,8 @@ const Home = () => {
     loadPosts();
   }, []);
 
-  // 搜索过滤
+  const fixedFeaturedPost = posts[0] ?? null;
+
   const filteredPosts = useMemo(() => {
     if (!searchQuery.trim()) {
       return posts;
@@ -39,14 +40,20 @@ const Home = () => {
     );
   }, [posts, searchQuery]);
 
-  // 分页逻辑
-  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
-  const paginatedPosts = useMemo(() => {
-    const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
-    return filteredPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
-  }, [filteredPosts, currentPage]);
+  const regularSourcePosts = useMemo(() => {
+    if (!fixedFeaturedPost) {
+      return filteredPosts;
+    }
 
-  // 搜索时重置页码
+    return filteredPosts.filter((post) => post.slug !== fixedFeaturedPost.slug);
+  }, [filteredPosts, fixedFeaturedPost]);
+
+  const totalPages = Math.ceil(regularSourcePosts.length / POSTS_PER_PAGE);
+  const paginatedRegularPosts = useMemo(() => {
+    const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+    return regularSourcePosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+  }, [regularSourcePosts, currentPage]);
+
   useEffect(() => {
     setCurrentPage(1);
   }, [searchQuery]);
@@ -58,6 +65,60 @@ const Home = () => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const featuredLabel = locale === 'zh' ? '精选' : 'Featured';
+
+  const renderPostCard = (post: PostMetadata, isFeatured = false) => {
+    const cardClasses = `post-card${isFeatured ? ' is-featured' : ''}`;
+    const linkClasses = `post-card-link${isFeatured ? ' is-featured' : ''}`;
+
+    return (
+      <Link key={post.slug} to={`/post/${post.slug}`} className={linkClasses}>
+        <article className={cardClasses}>
+          {post.coverImage ? (
+            <img
+              src={post.coverImage}
+              alt={post.title}
+              className="post-card-cover"
+            />
+          ) : (
+            <div className="post-card-placeholder">
+              {getFirstLetter(post.title)}
+            </div>
+          )}
+          <div className="post-card-content">
+            {isFeatured && (
+              <span className="post-featured-badge">{featuredLabel}</span>
+            )}
+            <div className="post-card-header">
+              <h3 className="post-card-title">{post.title}</h3>
+            </div>
+            <div className="post-card-info">
+              <time className="post-card-date">{post.date}</time>
+              <span className="post-card-reading-time">
+                ⏱️ {post.readingTime} {t.common.minuteRead}
+              </span>
+            </div>
+            <p className="post-card-excerpt">{post.excerpt}</p>
+            <div className="post-card-meta">
+              {post.category && (
+                <span className="post-category">{post.category}</span>
+              )}
+              {post.tags && (
+                <div className="post-tags">
+                  {post.tags.slice(0, isFeatured ? 4 : 3).map((tag) => (
+                    <span key={tag} className="post-tag">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </article>
+      </Link>
+    );
   };
 
   return (
@@ -97,57 +158,19 @@ const Home = () => {
           </div>
         ) : (
           <>
-            <div className="posts-list">
-              {paginatedPosts.map((post) => (
-                <Link
-                  key={post.slug}
-                  to={`/post/${post.slug}`}
-                  className="post-card-link"
-                >
-                  <article className="post-card">
-                    {post.coverImage ? (
-                      <img
-                        src={post.coverImage}
-                        alt={post.title}
-                        className="post-card-cover"
-                      />
-                    ) : (
-                      <div className="post-card-placeholder">
-                        {getFirstLetter(post.title)}
-                      </div>
-                    )}
-                    <div className="post-card-content">
-                      <div className="post-card-header">
-                        <h3 className="post-card-title">{post.title}</h3>
-                      </div>
-                      <div className="post-card-info">
-                        <time className="post-card-date">{post.date}</time>
-                        <span className="post-card-reading-time">
-                          ⏱️ {post.readingTime} {t.common.minuteRead}
-                        </span>
-                      </div>
-                      <p className="post-card-excerpt">{post.excerpt}</p>
-                      <div className="post-card-meta">
-                        {post.category && (
-                          <span className="post-category">{post.category}</span>
-                        )}
-                        {post.tags && (
-                          <div className="post-tags">
-                            {post.tags.slice(0, 3).map((tag) => (
-                              <span key={tag} className="post-tag">
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </article>
-                </Link>
-              ))}
+            <div className="posts-list posts-list--editorial">
+              {fixedFeaturedPost && (
+                <div className="featured-slot">
+                  {renderPostCard(fixedFeaturedPost, true)}
+                </div>
+              )}
+              {paginatedRegularPosts.length > 0 && (
+                <div className="regular-grid">
+                  {paginatedRegularPosts.map((post) => renderPostCard(post))}
+                </div>
+              )}
             </div>
 
-            {/* 分页 */}
             {totalPages > 1 && (
               <div className="pagination">
                 <button

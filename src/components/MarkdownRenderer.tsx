@@ -27,6 +27,14 @@ const LANGUAGE_ALIASES: Record<string, string> = {
 
 let languagesRegistered = false;
 
+function mergeClassName(baseClass: string, incoming?: string): string {
+  return incoming ? `${baseClass} ${incoming}` : baseClass;
+}
+
+function isExternalLink(href?: string): boolean {
+  return Boolean(href && /^https?:\/\//i.test(href));
+}
+
 const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
   const [SyntaxHighlighter, setSyntaxHighlighter] =
     useState<PrismLightComponent | null>(null);
@@ -131,6 +139,86 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
             <code className={className} {...props}>
               {children}
             </code>
+          );
+        },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        p({ node, children, ...props }: any) {
+          const firstChild = node?.children?.[0];
+          const isImageOnlyParagraph =
+            node?.children?.length === 1 &&
+            firstChild?.type === 'element' &&
+            firstChild?.tagName === 'img';
+
+          if (isImageOnlyParagraph) {
+            return <>{children}</>;
+          }
+
+          return <p {...props}>{children}</p>;
+        },
+        img({ className, alt = '', ...props }) {
+          const caption = alt.trim();
+
+          return (
+            <figure className="markdown-image-figure">
+              <img
+                className={mergeClassName('markdown-image', className)}
+                alt={alt}
+                loading="lazy"
+                {...props}
+              />
+              {caption && (
+                <figcaption className="markdown-image-caption">
+                  {caption}
+                </figcaption>
+              )}
+            </figure>
+          );
+        },
+        table({ className, children, ...props }) {
+          return (
+            <div className="markdown-table-wrap">
+              <table
+                className={mergeClassName('markdown-table', className)}
+                {...props}
+              >
+                {children}
+              </table>
+            </div>
+          );
+        },
+        blockquote({ className, children, ...props }) {
+          return (
+            <blockquote
+              className={mergeClassName('markdown-blockquote', className)}
+              {...props}
+            >
+              {children}
+            </blockquote>
+          );
+        },
+        a({ className, href, children, ...props }) {
+          if (isExternalLink(href)) {
+            return (
+              <a
+                className={mergeClassName('markdown-link', className)}
+                href={href}
+                rel="noreferrer noopener"
+                target="_blank"
+                {...props}
+              >
+                {children}
+              </a>
+            );
+          }
+
+          return (
+            <a
+              className={mergeClassName('markdown-link', className)}
+              href={href}
+              {...props}
+            >
+              {children}
+            </a>
           );
         },
       }}
