@@ -1,0 +1,15 @@
+{
+  "slug": "typescript-best-practices",
+  "title": "TypeScript 最佳实践",
+  "date": "2025-01-04",
+  "excerpt": "TypeScript 为 JavaScript 添加了类型系统，提高了代码的可维护性和可靠性。本文分享一些实用的 TypeScript 最佳实践。",
+  "author": "Wind",
+  "category": "TypeScript",
+  "tags": [
+    "JavaScript",
+    "类型系统"
+  ],
+  "coverImage": "/images/88bf6d97445f18e111b83f1734261904.jpg",
+  "readingTime": 1,
+  "content": "\r\n# TypeScript 最佳实践\r\n\r\nTypeScript 为 JavaScript 添加了类型系统，提高了代码的可维护性和可靠性。\r\n\r\n## 类型推断\r\n\r\nTypeScript 能够自动推断变量类型：\r\n\r\n```typescript\r\nlet message = 'Hello'; // 推断为 string\r\nlet count = 42; // 推断为 number\r\n\r\n// 不需要显式声明类型\r\nconst add = (a: number, b: number) => a + b;\r\n```\r\n\r\n## 接口 vs 类型别名\r\n\r\n接口用于定义对象结构：\r\n\r\n```typescript\r\ninterface User {\r\n  id: number;\r\n  name: string;\r\n  email: string;\r\n}\r\n\r\nconst user: User = {\r\n  id: 1,\r\n  name: 'John',\r\n  email: 'john@example.com',\r\n};\r\n```\r\n\r\n类型别名更灵活：\r\n\r\n```typescript\r\ntype ID = number | string;\r\ntype User = {\r\n  id: ID;\r\n  name: string;\r\n};\r\n```\r\n\r\n## 泛型\r\n\r\n泛型让代码更加灵活和可复用：\r\n\r\n```typescript\r\nfunction identity<T>(value: T): T {\r\n  return value;\r\n}\r\n\r\nconst num = identity<number>(42);\r\nconst str = identity('hello');\r\n```\r\n\r\n## 类型守卫\r\n\r\n使用类型守卫来缩窄类型：\r\n\r\n```typescript\r\nfunction isString(value: unknown): value is string {\r\n  return typeof value === 'string';\r\n}\r\n\r\nif (isString(value)) {\r\n  console.log(value.toUpperCase()); // TypeScript 知道这是 string\r\n}\r\n```\r\n\r\n## 结论\r\n\r\n合理使用 TypeScript 的特性可以大大提高代码质量和开发效率。\r\n"
+}

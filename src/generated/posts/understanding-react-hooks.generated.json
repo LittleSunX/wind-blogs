@@ -1,0 +1,16 @@
+{
+  "slug": "understanding-react-hooks",
+  "title": "深入理解 React Hooks",
+  "date": "2025-01-05",
+  "excerpt": "React Hooks 改变了我们在函数组件中管理状态和副作用的方式。本文将深入探讨常用 Hooks 的使用方法和最佳实践。",
+  "author": "Wind",
+  "category": "React",
+  "tags": [
+    "React",
+    "JavaScript",
+    "Frontend"
+  ],
+  "coverImage": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&h=600&fit=crop",
+  "readingTime": 1,
+  "content": "\n# 深入理解 React Hooks\n\nReact Hooks 改变了我们在函数组件中管理状态和副作用的方式。\n\n## useState\n\n`useState` 是最常用的 Hook，用于在函数组件中添加状态。\n\n```jsx\nimport { useState } from 'react';\n\nfunction Counter() {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div>\n      <p>Count: {count}</p>\n      <button onClick={() => setCount(count + 1)}>Increment</button>\n    </div>\n  );\n}\n```\n\n## useEffect\n\n`useEffect` 用于处理副作用，如数据获取、订阅等。\n\n```jsx\nimport { useEffect, useState } from 'react';\n\nfunction UserProfile({ userId }) {\n  const [user, setUser] = useState(null);\n\n  useEffect(() => {\n    fetchUser(userId).then(setUser);\n  }, [userId]);\n\n  return user ? <div>{user.name}</div> : <div>Loading...</div>;\n}\n```\n\n## 自定义 Hooks\n\n你可以创建自己的 Hooks 来复用状态逻辑。\n\n```jsx\nfunction useWindowSize() {\n  const [size, setSize] = useState({\n    width: window.innerWidth,\n    height: window.innerHeight,\n  });\n\n  useEffect(() => {\n    const handleResize = () => {\n      setSize({\n        width: window.innerWidth,\n        height: window.innerHeight,\n      });\n    };\n\n    window.addEventListener('resize', handleResize);\n    return () => window.removeEventListener('resize', handleResize);\n  }, []);\n\n  return size;\n}\n```\n\n## 总结\n\nHooks 让我们能够在函数组件中使用状态和其他 React 特性，使代码更加简洁和可维护。\n"
+}
