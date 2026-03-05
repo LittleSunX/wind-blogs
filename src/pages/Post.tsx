@@ -108,14 +108,15 @@ const Post = () => {
               )}
             </div>
             {post.tags && post.tags.length > 0 && (
-              <div className="post-tags">
+              <div className="post-header-tags">
                 {post.tags.map((tag) => (
-                  <span key={tag} className="post-tag-badge">
+                  <span key={tag} className="post-header-tag">
                     {tag}
                   </span>
                 ))}
               </div>
             )}
+            {post.excerpt && <p className="post-lead">{post.excerpt}</p>}
           </header>
 
           <div className="post-content">
