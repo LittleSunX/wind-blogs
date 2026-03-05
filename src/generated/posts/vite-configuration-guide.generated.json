@@ -1,0 +1,16 @@
+{
+  "slug": "vite-configuration-guide",
+  "title": "Vite 配置完全指南",
+  "date": "2025-01-03",
+  "excerpt": "Vite 是下一代前端构建工具，提供了极速的开发体验。本文详细介绍 Vite 的配置和最佳实践。",
+  "author": "Wind",
+  "category": "构建工具",
+  "tags": [
+    "Vite",
+    "前端工程化",
+    "构建工具"
+  ],
+  "coverImage": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&h=600&fit=crop",
+  "readingTime": 1,
+  "content": "\n# Vite 配置完全指南\n\nVite 是下一代前端构建工具，提供了极速的开发体验。\n\n## 为什么选择 Vite？\n\n- ⚡️ 极速的服务启动\n- 🔥 热模块替换（HMR）\n- 📦 优化的构建\n- 🔧 丰富的插件生态\n\n## 基础配置\n\n```typescript\nimport { defineConfig } from 'vite';\nimport react from '@vitejs/plugin-react';\n\nexport default defineConfig({\n  plugins: [react()],\n  server: {\n    port: 3000,\n    open: true,\n  },\n});\n```\n\n## 路径别名\n\n配置路径别名让导入更简洁：\n\n```typescript\nexport default defineConfig({\n  resolve: {\n    alias: {\n      '@': path.resolve(__dirname, './src'),\n      '@components': path.resolve(__dirname, './src/components'),\n      '@utils': path.resolve(__dirname, './src/utils'),\n    },\n  },\n});\n```\n\n## 环境变量\n\n使用 `.env` 文件管理环境变量：\n\n```bash\n# .env.development\nVITE_API_URL=http://localhost:3000/api\n\n# .env.production\nVITE_API_URL=https://api.example.com\n```\n\n在代码中使用：\n\n```typescript\nconst apiUrl = import.meta.env.VITE_API_URL;\n```\n\n## 构建优化\n\n```typescript\nexport default defineConfig({\n  build: {\n    outDir: 'dist',\n    assetsDir: 'assets',\n    sourcemap: false,\n    minify: 'terser',\n    rollupOptions: {\n      output: {\n        manualChunks: {\n          vendor: ['react', 'react-dom'],\n          utils: ['lodash', 'axios'],\n        },\n      },\n    },\n  },\n});\n```\n\n## 总结\n\nVite 提供了强大而灵活的配置选项，合理配置可以大大提升开发体验和构建性能。\n"
+}

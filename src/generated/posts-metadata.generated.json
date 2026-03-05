@@ -1,0 +1,60 @@
+[
+  {
+    "slug": "welcome-to-my-blog",
+    "title": "欢迎来到我的博客",
+    "date": "2025-01-06",
+    "excerpt": "这是我的第一篇技术博客文章。在这里我将分享编程知识、技术心得和项目经验。",
+    "author": "Wind",
+    "tags": [
+      "博客",
+      "介绍"
+    ],
+    "category": "公告",
+    "coverImage": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200&h=600&fit=crop",
+    "readingTime": 1
+  },
+  {
+    "slug": "understanding-react-hooks",
+    "title": "深入理解 React Hooks",
+    "date": "2025-01-05",
+    "excerpt": "React Hooks 改变了我们在函数组件中管理状态和副作用的方式。本文将深入探讨常用 Hooks 的使用方法和最佳实践。",
+    "author": "Wind",
+    "tags": [
+      "React",
+      "JavaScript",
+      "Frontend"
+    ],
+    "category": "React",
+    "coverImage": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&h=600&fit=crop",
+    "readingTime": 1
+  },
+  {
+    "slug": "typescript-best-practices",
+    "title": "TypeScript 最佳实践",
+    "date": "2025-01-04",
+    "excerpt": "TypeScript 为 JavaScript 添加了类型系统，提高了代码的可维护性和可靠性。本文分享一些实用的 TypeScript 最佳实践。",
+    "author": "Wind",
+    "tags": [
+      "JavaScript",
+      "类型系统"
+    ],
+    "category": "TypeScript",
+    "coverImage": "/images/88bf6d97445f18e111b83f1734261904.jpg",
+    "readingTime": 1
+  },
+  {
+    "slug": "vite-configuration-guide",
+    "title": "Vite 配置完全指南",
+    "date": "2025-01-03",
+    "excerpt": "Vite 是下一代前端构建工具，提供了极速的开发体验。本文详细介绍 Vite 的配置和最佳实践。",
+    "author": "Wind",
+    "tags": [
+      "Vite",
+      "前端工程化",
+      "构建工具"
+    ],
+    "category": "构建工具",
+    "coverImage": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&h=600&fit=crop",
+    "readingTime": 1
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "slug": "welcome-to-my-blog",
+  "title": "欢迎来到我的博客",
+  "date": "2025-01-06",
+  "excerpt": "这是我的第一篇技术博客文章。在这里我将分享编程知识、技术心得和项目经验。",
+  "author": "Wind",
+  "category": "公告",
+  "tags": [
+    "博客",
+    "介绍"
+  ],
+  "coverImage": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200&h=600&fit=crop",
+  "readingTime": 1,
+  "content": "\n# 欢迎来到我的博客\n\n这是我的第一篇技术博客文章。在这里我将分享编程知识、技术心得和项目经验。\n\n## 关于这个博客\n\n这个博客使用 **React + Vite** 构建，支持 Markdown 格式的文章。\n\n### 技术栈\n\n- React 18\n- TypeScript\n- Vite\n- React Router\n- React Markdown\n\n## 代码示例\n\n下面是一个简单的 JavaScript 代码示例：\n\n```javascript\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}\n\nconsole.log(greet('World'));\n```\n\n## 总结\n\n感谢你的阅读，更多精彩内容敬请期待！\n"
+}

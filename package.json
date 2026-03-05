@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "test": "vitest run",
-    "test:watch": "vitest",
+    "dev": "npm run posts:generate && vite",
+    "test": "npm run posts:generate && vitest run",
+    "test:watch": "npm run posts:generate && vitest",
     "test:e2e": "playwright test",
-    "build": "tsc && npm run posts:check && vite build && npm run rss && npm run seo:assets",
+    "build": "tsc && npm run posts:check && npm run posts:generate && vite build && npm run rss && npm run seo:assets",
     "preview": "vite preview",
     "posts:check": "npx tsx scripts/check-posts.ts",
     "rss": "npx tsx scripts/generate-rss.ts",
@@ -16,10 +16,10 @@
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,json,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css,json,md}\"",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "posts:generate": "npx tsx scripts/generate-post-index.ts"
   },
   "dependencies": {
-    "buffer": "^6.0.3",
     "gray-matter": "^4.0.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
