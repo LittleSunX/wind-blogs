@@ -24,8 +24,8 @@ function resolveImageUrl(image: string): string {
 
 const SEO: React.FC<SEOProps> = ({
   title = appConfig.siteName,
-  description = '分享编程知识、技术心得和项目经验的技术博客',
-  keywords = ['技术博客', '前端开发', 'React', 'TypeScript', '编程'],
+  description,
+  keywords = [],
   author = 'Wind',
   image,
   url,

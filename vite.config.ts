@@ -21,30 +21,61 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (!id.includes('node_modules')) {
+          const normalizedId = id.replace(/\\/g, '/');
+
+          if (!normalizedId.includes('node_modules')) {
             return undefined;
           }
 
-          if (/node_modules[\\/](react|react-dom|scheduler)[\\/]/.test(id)) {
+          if (
+            /node_modules\/(react|react-dom|scheduler)\//.test(normalizedId)
+          ) {
             return 'react';
           }
 
-          if (id.includes('react-router') || id.includes('@remix-run/router')) {
+          if (
+            normalizedId.includes('react-router') ||
+            normalizedId.includes('@remix-run/router')
+          ) {
             return 'router';
           }
 
-          if (id.includes('react-helmet-async')) {
+          if (normalizedId.includes('react-helmet-async')) {
             return 'helmet';
           }
 
           if (
-            id.includes('react-syntax-highlighter') ||
-            id.includes('refractor') ||
-            id.includes('prismjs') ||
-            id.includes('highlight.js') ||
-            id.includes('lowlight')
+            normalizedId.includes(
+              'react-syntax-highlighter/dist/esm/prism-light'
+            )
           ) {
-            return 'syntax';
+            return 'syntax-core';
+          }
+
+          if (
+            normalizedId.includes(
+              'react-syntax-highlighter/dist/esm/styles/prism'
+            )
+          ) {
+            return 'syntax-theme';
+          }
+
+          if (
+            normalizedId.includes(
+              'react-syntax-highlighter/dist/esm/languages/prism/'
+            )
+          ) {
+            const match = normalizedId.match(/languages\/prism\/(\w+)/);
+            return `syntax-lang-${match?.[1] ?? 'misc'}`;
+          }
+
+          if (
+            normalizedId.includes('refractor') ||
+            normalizedId.includes('prismjs') ||
+            normalizedId.includes('highlight.js') ||
+            normalizedId.includes('lowlight')
+          ) {
+            return 'syntax-vendor';
           }
 
           return 'vendor';

@@ -9,7 +9,7 @@ import '../styles/Home.css';
 const POSTS_PER_PAGE = 6;
 
 const Home = () => {
-  const { t, locale } = useI18n();
+  const { t } = useI18n();
   const [posts, setPosts] = useState<PostMetadata[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -67,7 +67,7 @@ const Home = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const featuredLabel = locale === 'zh' ? '精选' : 'Featured';
+  const featuredLabel = t.home.featured;
 
   const renderPostCard = (post: PostMetadata, isFeatured = false) => {
     const cardClasses = `post-card${isFeatured ? ' is-featured' : ''}`;
@@ -125,15 +125,8 @@ const Home = () => {
     <div className="home">
       <SEO
         title="Wind Blogs"
-        description="分享编程知识、技术心得和项目经验的技术博客"
-        keywords={[
-          '技术博客',
-          '前端开发',
-          'React',
-          'TypeScript',
-          'JavaScript',
-          '编程教程',
-        ]}
+        description={t.seo.defaultDescription}
+        keywords={t.seo.defaultKeywords}
       />
 
       <header className="home-header">

@@ -3,6 +3,8 @@ import { Component, ErrorInfo, ReactNode } from 'react';
 interface ErrorBoundaryProps {
   children: ReactNode;
   fallback?: ReactNode;
+  errorTitle?: string;
+  errorDescription?: string;
 }
 
 interface ErrorBoundaryState {
@@ -29,13 +31,18 @@ export class ErrorBoundary extends Component<
 
   render() {
     if (this.state.hasError) {
+      if (this.props.fallback) {
+        return this.props.fallback;
+      }
+
       return (
-        this.props.fallback || (
-          <div className="error-boundary">
-            <h1>Something went wrong.</h1>
-            <p>Please refresh the page to try again.</p>
-          </div>
-        )
+        <div className="error-boundary">
+          <h1>{this.props.errorTitle ?? 'Something went wrong.'}</h1>
+          <p>
+            {this.props.errorDescription ??
+              'Please refresh the page to try again.'}
+          </p>
+        </div>
       );
     }
 

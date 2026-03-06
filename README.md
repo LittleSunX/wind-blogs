@@ -60,6 +60,21 @@ npm install
 npm run dev
 ```
 
+### Enable Pre-push Checks
+
+```bash
+# Install repository git hooks (run once)
+npm run hooks:install
+```
+
+After installation, every `git push` will run `lint + test + build` locally.
+
+Temporarily skip once if needed:
+
+```bash
+SKIP_PREPUSH=1 git push
+```
+
 Visit http://localhost:5173 to see your blog
 
 ### Build for Production
@@ -78,7 +93,7 @@ npm run preview
 
 Create a new `.md` file in `src/posts/` directory:
 
-```markdown
+````markdown
 ---
 title: My Article Title
 date: 2025-01-06
@@ -102,11 +117,13 @@ Article content goes here...
 const hello = 'World';
 console.log(hello);
 ```
+````
 
 ## Summary
 
 Article summary...
-```
+
+````
 
 ### Frontmatter Fields
 
@@ -135,7 +152,7 @@ Article summary...
 
 ```markdown
 ![Description](/images/your-image.jpg)
-```
+````
 
 ### Option 2: External URLs
 
@@ -165,13 +182,13 @@ Edit CSS variables in `src/index.css`:
   --accent-primary: #646cff;
   --accent-secondary: #7c3aed;
   --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  
+
   /* Dark theme background */
   --bg-primary: #242424;
   --bg-secondary: #1a1a1a;
 }
 
-[data-theme="light"] {
+[data-theme='light'] {
   /* Light theme background */
   --bg-primary: #f5f5f7;
   --bg-secondary: #ffffff;
@@ -234,7 +251,7 @@ This project supports Chinese/English interface switching, auto-detecting browse
 Edit `src/i18n/locales.ts`:
 
 ```typescript
-export type Locale = 'zh' | 'en' | 'ja';  // Add new language code
+export type Locale = 'zh' | 'en' | 'ja'; // Add new language code
 
 export const locales: Record<Locale, LocaleStrings> = {
   // ... existing languages
@@ -271,8 +288,8 @@ Publish directory: dist
 
 ```typescript
 export default defineConfig({
-  base: '/wind-blogs/',  // Your repo name
-})
+  base: '/wind-blogs/', // Your repo name
+});
 ```
 
 2. Build and push to gh-pages branch
@@ -284,14 +301,14 @@ export default defineConfig({
 
 ## 🛠️ Tech Stack
 
-| Technology | Version | Description |
-|------------|---------|-------------|
-| [React](https://react.dev/) | 18.3 | UI Framework |
-| [TypeScript](https://www.typescriptlang.org/) | 5.5 | Type System |
-| [Vite](https://vitejs.dev/) | 5.4 | Build Tool |
-| [React Router](https://reactrouter.com/) | 6.22 | Routing |
-| [React Markdown](https://github.com/remarkjs/react-markdown) | 9.0 | Markdown Parsing |
-| [Giscus](https://giscus.app/) | - | Comments |
+| Technology                                                   | Version | Description      |
+| ------------------------------------------------------------ | ------- | ---------------- |
+| [React](https://react.dev/)                                  | 18.3    | UI Framework     |
+| [TypeScript](https://www.typescriptlang.org/)                | 5.5     | Type System      |
+| [Vite](https://vitejs.dev/)                                  | 5.4     | Build Tool       |
+| [React Router](https://reactrouter.com/)                     | 6.22    | Routing          |
+| [React Markdown](https://github.com/remarkjs/react-markdown) | 9.0     | Markdown Parsing |
+| [Giscus](https://giscus.app/)                                | -       | Comments         |
 
 ## 📊 Roadmap
 

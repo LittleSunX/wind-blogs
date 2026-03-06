@@ -6,13 +6,21 @@ import App from './App';
 import { I18nProvider } from './contexts/I18nContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 
+const routerFuture = {
+  v7_startTransition: true,
+  v7_relativeSplatPath: true,
+} as const;
+
 describe('App routing', () => {
   it('shows not found page for unknown route', async () => {
     render(
       <HelmetProvider>
         <I18nProvider>
           <ThemeProvider>
-            <MemoryRouter initialEntries={['/missing-route']}>
+            <MemoryRouter
+              initialEntries={['/missing-route']}
+              future={routerFuture}
+            >
               <App />
             </MemoryRouter>
           </ThemeProvider>

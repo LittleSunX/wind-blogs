@@ -7,7 +7,10 @@ const SITE_URL = (
   process.env.VITE_SITE_URL || 'https://wind-blogs.vercel.app'
 ).replace(/\/+$/, '');
 const SITE_TITLE = process.env.VITE_SITE_NAME || 'Wind Blogs';
-const SITE_DESCRIPTION = '分享编程知识、技术心得和项目经验的技术博客';
+const SITE_DESCRIPTION =
+  process.env.VITE_SITE_DESCRIPTION ||
+  'A tech blog sharing programming knowledge, insights and project experience';
+const SITE_LANGUAGE = process.env.VITE_SITE_LANGUAGE || 'en';
 
 interface PostData {
   slug: string;
@@ -45,6 +48,20 @@ function getAllPosts(): PostData[] {
   return posts;
 }
 
+function getStableBuildDate(posts: PostData[]): string {
+  const latestDate = posts[0]?.date;
+
+  if (latestDate) {
+    const parsed = new Date(latestDate);
+    if (!Number.isNaN(parsed.getTime())) {
+      return parsed.toUTCString();
+    }
+  }
+
+  // 无文章时使用固定时间，避免每次构建都产生无意义 diff
+  return new Date('1970-01-01T00:00:00.000Z').toUTCString();
+}
+
 // 转义 XML 特殊字符
 function escapeXml(str: string): string {
   return str
@@ -57,6 +74,8 @@ function escapeXml(str: string): string {
 
 // 生成 RSS XML
 function generateRss(posts: PostData[]): string {
+  const lastBuildDate = getStableBuildDate(posts);
+
   const items = posts
     .slice(0, 20) // 只包含最新的 20 篇文章
     .map((post) => {
@@ -81,8 +100,8 @@ function generateRss(posts: PostData[]): string {
     <title>${escapeXml(SITE_TITLE)}</title>
     <link>${SITE_URL}</link>
     <description>${escapeXml(SITE_DESCRIPTION)}</description>
-    <language>zh-CN</language>
-    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
+    <language>${escapeXml(SITE_LANGUAGE)}</language>
+    <lastBuildDate>${lastBuildDate}</lastBuildDate>
     <atom:link href="${SITE_URL}/rss.xml" rel="self" type="application/rss+xml"/>
     ${items}
   </channel>

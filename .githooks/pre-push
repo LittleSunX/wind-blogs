@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+set -eu
+
+if [ "${SKIP_PREPUSH:-0}" = "1" ]; then
+  echo "[pre-push] skipped (SKIP_PREPUSH=1)"
+  exit 0
+fi
+
+echo "[pre-push] running quality checks..."
+npm run prepush:check

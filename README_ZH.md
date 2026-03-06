@@ -60,6 +60,21 @@ npm install
 npm run dev
 ```
 
+### 启用 pre-push 自动检查
+
+```bash
+# 安装仓库 git hooks（执行一次）
+npm run hooks:install
+```
+
+安装后，每次 `git push` 前会自动执行 `lint + test + build`。
+
+如需临时跳过一次：
+
+```bash
+SKIP_PREPUSH=1 git push
+```
+
 访问 http://localhost:5173 查看你的博客
 
 ### 构建部署
@@ -78,7 +93,7 @@ npm run preview
 
 在 `src/posts/` 目录下创建新的 `.md` 文件：
 
-```markdown
+````markdown
 ---
 title: 我的文章标题
 date: 2025-01-06
@@ -102,11 +117,13 @@ coverImage: /images/react-cover.jpg
 const hello = 'World';
 console.log(hello);
 ```
+````
 
 ## 总结
 
 文章总结内容...
-```
+
+````
 
 ### Frontmatter 字段说明
 
@@ -135,7 +152,7 @@ console.log(hello);
 
 ```markdown
 ![图片描述](/images/your-image.jpg)
-```
+````
 
 3. 或作为封面图：
 
@@ -181,13 +198,13 @@ coverImage: https://example.com/image.jpg
   --accent-primary: #646cff;
   --accent-secondary: #7c3aed;
   --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  
+
   /* 暗色主题背景 */
   --bg-primary: #242424;
   --bg-secondary: #1a1a1a;
 }
 
-[data-theme="light"] {
+[data-theme='light'] {
   /* 亮色主题背景 */
   --bg-primary: #f5f5f7;
   --bg-secondary: #ffffff;
@@ -206,10 +223,10 @@ coverImage: https://example.com/image.jpg
 
 ```typescript
 const GISCUS_CONFIG = {
-  repo: 'your-username/your-repo',  // 你的仓库
-  repoId: 'R_xxxxxxxx',             // 仓库 ID
-  category: 'Announcements',        // Discussion 分类
-  categoryId: 'DIC_xxxxxxxx',       // 分类 ID
+  repo: 'your-username/your-repo', // 你的仓库
+  repoId: 'R_xxxxxxxx', // 仓库 ID
+  category: 'Announcements', // Discussion 分类
+  categoryId: 'DIC_xxxxxxxx', // 分类 ID
 };
 ```
 
@@ -230,7 +247,7 @@ npm run build
 编辑 `scripts/generate-rss.ts`，修改网站地址：
 
 ```typescript
-const SITE_URL = 'https://your-domain.com';  // 你的网站地址
+const SITE_URL = 'https://your-domain.com'; // 你的网站地址
 ```
 
 RSS 文件将生成在 `/rss.xml`，用户可通过导航栏的 RSS 链接订阅。
@@ -250,7 +267,7 @@ RSS 文件将生成在 `/rss.xml`，用户可通过导航栏的 RSS 链接订阅
 编辑 `src/i18n/locales.ts`，添加新的语言配置：
 
 ```typescript
-export type Locale = 'zh' | 'en' | 'ja';  // 添加新语言代码
+export type Locale = 'zh' | 'en' | 'ja'; // 添加新语言代码
 
 export const locales: Record<Locale, LocaleStrings> = {
   // ... 现有语言
@@ -338,9 +355,9 @@ wind_blogs/
 
 ```typescript
 export default defineConfig({
-  base: '/wind-blogs/',  // 你的仓库名
+  base: '/wind-blogs/', // 你的仓库名
   // ... 其他配置
-})
+});
 ```
 
 2. 构建并推送：
@@ -360,17 +377,17 @@ npm run build
 
 ## 🛠️ 技术栈
 
-| 技术 | 版本 | 说明 |
-|------|------|------|
-| [React](https://react.dev/) | 18.3 | UI 框架 |
-| [TypeScript](https://www.typescriptlang.org/) | 5.5 | 类型系统 |
-| [Vite](https://vitejs.dev/) | 5.4 | 构建工具 |
-| [React Router](https://reactrouter.com/) | 6.22 | 路由管理 |
-| [React Markdown](https://github.com/remarkjs/react-markdown) | 9.0 | Markdown 解析 |
-| [Remark GFM](https://github.com/remarkjs/remark-gfm) | 4.0 | GitHub Flavored Markdown |
-| [React Syntax Highlighter](https://github.com/react-syntax-highlighter/react-syntax-highlighter) | 15.5 | 代码高亮 |
-| [React Helmet Async](https://github.com/staylor/react-helmet-async) | 2.0 | SEO meta 标签管理 |
-| [Giscus](https://giscus.app/) | - | GitHub Discussions 评论系统 |
+| 技术                                                                                             | 版本 | 说明                        |
+| ------------------------------------------------------------------------------------------------ | ---- | --------------------------- |
+| [React](https://react.dev/)                                                                      | 18.3 | UI 框架                     |
+| [TypeScript](https://www.typescriptlang.org/)                                                    | 5.5  | 类型系统                    |
+| [Vite](https://vitejs.dev/)                                                                      | 5.4  | 构建工具                    |
+| [React Router](https://reactrouter.com/)                                                         | 6.22 | 路由管理                    |
+| [React Markdown](https://github.com/remarkjs/react-markdown)                                     | 9.0  | Markdown 解析               |
+| [Remark GFM](https://github.com/remarkjs/remark-gfm)                                             | 4.0  | GitHub Flavored Markdown    |
+| [React Syntax Highlighter](https://github.com/react-syntax-highlighter/react-syntax-highlighter) | 15.5 | 代码高亮                    |
+| [React Helmet Async](https://github.com/staylor/react-helmet-async)                              | 2.0  | SEO meta 标签管理           |
+| [Giscus](https://giscus.app/)                                                                    | -    | GitHub Discussions 评论系统 |
 
 ## 📊 功能路线图
 

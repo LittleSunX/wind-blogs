@@ -13,6 +13,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <div className="layout">
+      <a href="#main-content" className="skip-to-content">
+        {t.nav.skipToContent}
+      </a>
       <header className="header">
         <div className="container">
           <Link to="/" className="logo">
@@ -41,13 +44,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         </div>
       </header>
 
-      <main className="main">
+      <main id="main-content" className="main">
         <div className="container">{children}</div>
       </main>
 
       <footer className="footer">
         <div className="container">
-          <p>&copy; 2025 Wind Blogs. All rights reserved.</p>
+          <p>{t.footer.copyright}</p>
         </div>
       </footer>
     </div>

@@ -12,7 +12,10 @@ function App() {
   const { t } = useI18n();
 
   return (
-    <ErrorBoundary>
+    <ErrorBoundary
+      errorTitle={t.error.title}
+      errorDescription={t.error.description}
+    >
       <Layout>
         <Suspense fallback={<div>{t.common.loading}</div>}>
           <Routes>

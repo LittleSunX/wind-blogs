@@ -2,7 +2,6 @@
 export type Locale = 'zh' | 'en';
 
 export interface LocaleStrings {
-  // 通用
   common: {
     loading: string;
     backToHome: string;
@@ -12,51 +11,56 @@ export interface LocaleStrings {
     minuteRead: string;
     author: string;
   };
-  // 首页
   home: {
     title: string;
     subtitle: string;
     searchPlaceholder: string;
     latestArticles: string;
+    featured: string;
   };
-  // 分页
+  seo: {
+    defaultDescription: string;
+    defaultKeywords: string[];
+  };
   pagination: {
     prev: string;
     next: string;
   };
-  // 文章
   post: {
     category: string;
     tags: string;
   };
-  // 404 页面
   notFound: {
     title: string;
     description: string;
     backHome: string;
   };
-  // 评论
   comments: {
     title: string;
     configRequired: string;
     configHint: string;
     giscusLink: string;
   };
-  // 导航
   nav: {
     home: string;
     rss: string;
+    skipToContent: string;
   };
-  // 主题
   theme: {
     light: string;
     dark: string;
   };
-  // 语言
   language: {
     switch: string;
     zh: string;
     en: string;
+  };
+  error: {
+    title: string;
+    description: string;
+  };
+  footer: {
+    copyright: string;
   };
 }
 
@@ -76,6 +80,18 @@ export const locales: Record<Locale, LocaleStrings> = {
       subtitle: '分享编程知识与技术心得',
       searchPlaceholder: '搜索文章...',
       latestArticles: '最新文章',
+      featured: '精选',
+    },
+    seo: {
+      defaultDescription: '分享编程知识、技术心得和项目经验的技术博客',
+      defaultKeywords: [
+        '技术博客',
+        '前端开发',
+        'React',
+        'TypeScript',
+        'JavaScript',
+        '编程教程',
+      ],
     },
     pagination: {
       prev: '← 上一页',
@@ -99,6 +115,7 @@ export const locales: Record<Locale, LocaleStrings> = {
     nav: {
       home: '首页',
       rss: 'RSS 订阅',
+      skipToContent: '跳转到内容',
     },
     theme: {
       light: '亮色模式',
@@ -108,6 +125,13 @@ export const locales: Record<Locale, LocaleStrings> = {
       switch: '切换语言',
       zh: '中文',
       en: 'English',
+    },
+    error: {
+      title: '页面出错了',
+      description: '请刷新页面重试。',
+    },
+    footer: {
+      copyright: `© ${new Date().getFullYear()} Wind Blogs. 保留所有权利。`,
     },
   },
   en: {
@@ -125,6 +149,19 @@ export const locales: Record<Locale, LocaleStrings> = {
       subtitle: 'Sharing programming knowledge and tech insights',
       searchPlaceholder: 'Search articles...',
       latestArticles: 'Latest Articles',
+      featured: 'Featured',
+    },
+    seo: {
+      defaultDescription:
+        'A tech blog sharing programming knowledge, insights and project experience',
+      defaultKeywords: [
+        'Tech Blog',
+        'Frontend',
+        'React',
+        'TypeScript',
+        'JavaScript',
+        'Tutorials',
+      ],
     },
     pagination: {
       prev: '← Previous',
@@ -148,6 +185,7 @@ export const locales: Record<Locale, LocaleStrings> = {
     nav: {
       home: 'Home',
       rss: 'RSS Feed',
+      skipToContent: 'Skip to content',
     },
     theme: {
       light: 'Light Mode',
@@ -157,6 +195,13 @@ export const locales: Record<Locale, LocaleStrings> = {
       switch: 'Switch Language',
       zh: '中文',
       en: 'English',
+    },
+    error: {
+      title: 'Something went wrong',
+      description: 'Please refresh the page to try again.',
+    },
+    footer: {
+      copyright: `© ${new Date().getFullYear()} Wind Blogs. All rights reserved.`,
     },
   },
 };

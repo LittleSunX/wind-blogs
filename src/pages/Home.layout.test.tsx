@@ -6,6 +6,11 @@ import { describe, expect, it, vi } from 'vitest';
 import { I18nProvider } from '../contexts/I18nContext';
 import Home from './Home';
 
+const routerFuture = {
+  v7_startTransition: true,
+  v7_relativeSplatPath: true,
+} as const;
+
 vi.mock('../utils/posts', () => ({
   getAllPosts: async () =>
     Array.from({ length: 8 }, (_, index) => ({
@@ -25,7 +30,7 @@ describe('Home editorial layout', () => {
     const { container } = render(
       <HelmetProvider>
         <I18nProvider>
-          <MemoryRouter>
+          <MemoryRouter future={routerFuture}>
             <Home />
           </MemoryRouter>
         </I18nProvider>
@@ -49,7 +54,7 @@ describe('Home editorial layout', () => {
     render(
       <HelmetProvider>
         <I18nProvider>
-          <MemoryRouter>
+          <MemoryRouter future={routerFuture}>
             <Home />
           </MemoryRouter>
         </I18nProvider>
